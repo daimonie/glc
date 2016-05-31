@@ -38,7 +38,7 @@ x_label_text = "$J_3 \\left[J_1\\right]$"
 y_label_text = "$T\\, \\left[J_1\\right]$"
 
 extension = 'pdf'
-extension = 'png'
+#extension = 'png'
 ###
 print r"$\\beta_C$ data was inverted to find $T_C$. Also, I've cheated a little bit to make the smooth lines fit better."
  
@@ -163,7 +163,8 @@ first_polygon = create_polygon(
     min_y,
     3)
 ax.add_patch(first_polygon)
-ax.text( 0.05, .35, '$D_{4h}$', fontsize=40 )
+#ax.text( 0.05, .35, '$D_{4h}$', fontsize=40 )
+ax.text( 0.01, .35, '$D_{4h}$', fontsize=75 )
 #ax.text( 0., .5 - 0.05, 'Biaxial', fontsize=40 )
 ###
 second_polygon = create_polygon(
@@ -177,7 +178,8 @@ second_polygon = create_polygon(
     min_y,
     1)
 ax.add_patch(second_polygon)
-ax.text( 0.85, .40, '$D_{2d}$', fontsize=40 )
+#ax.text( 0.85, .40, '$D_{2d}$', fontsize=40 )
+ax.text( 0.85, .40, '$D_{2d}$', fontsize=75 )
 ### 
 ###
 third_polygon = create_polygon(
@@ -191,7 +193,8 @@ third_polygon = create_polygon(
     [],
     0)
 ax.add_patch(third_polygon)
-ax.text( 1.35, .9, '$D_{\\infty h}$', fontsize=40 )
+#ax.text( 1.35, .9, '$D_{\\infty h}$', fontsize=40 )
+ax.text( 1.30, .9, '$D_{\\infty h}$', fontsize=75 )
 ###
 fourth_polygon = create_polygon(
     d4h_03_coup,
@@ -204,7 +207,8 @@ fourth_polygon = create_polygon(
     np.array([max_y,max_y]),
     2)
 ax.add_patch(fourth_polygon)
-ax.text( 0.50, 0.90, '$O(3)$', fontsize=40 )
+#ax.text( 0.50, 0.90, '$O(3)$', fontsize=40 )
+ax.text( 0.50, 0.90, '$O(3)$', fontsize=75 )
 ### 
 
 

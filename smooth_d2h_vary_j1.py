@@ -130,7 +130,8 @@ first_polygon = create_polygon(
     min_y,
     0)
 ax.add_patch(first_polygon)
-ax.text( 0.08, .35 + 0.05, '$D_{\\infty h}$', fontsize=40 )
+#ax.text( 0.08, .35 + 0.05, '$D_{\\infty h}$', fontsize=40 )
+ax.text( 0.08, .35 + 0.05, '$D_{\\infty h}$', fontsize=75 )
 #ax.text( 0.05, .35 - 0.0, 'Uniaxial', fontsize=40 )
 #polygons time 
 second_polygon = create_polygon(
@@ -144,7 +145,8 @@ second_polygon = create_polygon(
     max_y,
     2)
 ax.add_patch(second_polygon) 
-ax.text( .45, .85 + 0.05, '$O(3)$', fontsize=40 )
+#ax.text( .45, .85 + 0.05, '$O(3)$', fontsize=40 )
+ax.text( .45, .85 + 0.05, '$O(3)$', fontsize=75 )
 #ax.text( .4, .85 - 0.0, 'Liquid', fontsize=40 )
 ###
 third_polygon = create_polygon(
@@ -158,7 +160,8 @@ third_polygon = create_polygon(
     min_y,
     1)
 ax.add_patch(third_polygon) 
-ax.text( .75, .35 + 0.05, '$D_{2h}$', fontsize=40 )
+#ax.text( .75, .35 + 0.05, '$D_{2h}$', fontsize=40 )
+ax.text( .75, .35 + 0.05, '$D_{2h}$', fontsize=75 )
 #ax.text( .7, .35 - 0.0, 'Biaxial', fontsize=40 )
 ### 
 ###labels

@@ -39,7 +39,7 @@ x_label_text = "$J_3 \\left[J_1\\right]$"
 y_label_text = "$T\\, \\left[J_1\\right]$"
 
 extension = 'pdf'
-extension = 'png'
+#extension = 'png'
 ###
 print r"$\\beta_C$ data was inverted to find $T_C$. Also, I've cheated a little bit to make the smooth lines fit better."
 # 0.10,  5.6,
@@ -178,7 +178,8 @@ first_polygon = create_polygon(
     min_x,
     3)
 ax.add_patch(first_polygon)
-ax.text( 0.05, .55 + 0.05, '$D_{2h}$', fontsize=40 )
+#ax.text( 0.05, .55 + 0.05, '$D_{2h}$', fontsize=40 )
+ax.text( 0.01, .60 + 0.05, '$D_{2h}$', fontsize=75 )
 #ax.text( 0., .5 - 0.05, 'Biaxial', fontsize=40 )
 ###
 second_polygon = create_polygon(
@@ -192,7 +193,8 @@ second_polygon = create_polygon(
     np.array([min_y,min_y]),
     1)
 ax.add_patch(second_polygon)
-ax.text( 1.25, .65 + 0.05, '$D_{2}$', fontsize=40 )
+#ax.text( 1.25, .65 + 0.05, '$D_{2}$', fontsize=40 )
+ax.text( 1.25, .65 + 0.05, '$D_{2}$', fontsize=75 )
 #ax.text( 1.2, .6 - 0.05, 'Biaxial', fontsize=40 )
 ###
 third_polygon = create_polygon( 
@@ -206,7 +208,8 @@ third_polygon = create_polygon(
     np.max(d2dinfh_crit),
     0)
 ax.add_patch(third_polygon)
-ax.text( 2.11, 1.25 + 0.05, '$D_{\infty h}$', fontsize=40 )
+#ax.text( 2.11, 1.25 + 0.05, '$D_{\infty h}$', fontsize=40 )
+ax.text( 2.11, 1.25 + 2*0.05, '$D_{\infty h}$', fontsize=75 )
 #ax.text( 2.0, 1.25 - 0.05, 'Uniaxial', fontsize=40 )
 ###
 
@@ -221,7 +224,8 @@ fourth_polygon = create_polygon(
     max_y,
     2)
 ax.add_patch(fourth_polygon)
-ax.text( .80, 1.2 + 0.05, '$O(3)$', fontsize=40 )
+#ax.text( .80, 1.2 + 0.05, '$O(3)$', fontsize=40 )
+ax.text( .80, 1.2 + 0.05, '$O(3)$', fontsize=75 )
 #ax.text( .80, 1.2 - 0.05, 'Liquid', fontsize=40 )
 ###
 
