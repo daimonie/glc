@@ -25,6 +25,8 @@ def lsqe(x, coupling, critical):
     
     return squares
 def smooth_bootstrap(coup, crit, points):  
+    if coup.shape[0] == 0:
+        return coup, crit
     optimizer = minimize( lsqe, [np.average(crit), 0.0, 1.0, 1.0, 0.0, 0.0, 0.0], args=(np.array(coup),crit),
         jac=False, method='L-BFGS-B', options={'disp': False}, tol = 1e-6)
         
