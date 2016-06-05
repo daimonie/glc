@@ -12,7 +12,7 @@ from smoother import *
 def color (number):
     return cm.ocean( number / 4.)
 ###parameters
-colours_markers = [ 'r', 'k', 'b', 'c', 'm', 'y', 'g']
+colours_markers = [ 'r', 'k', 'b', 'm', 'y', 'g']
 
 colours = [color(number) for number in range(0,4)]
 
@@ -34,12 +34,12 @@ max_x = 2.0
 x_tick_pad = 5
 x_label_pad = 15
 y_tick_pad = 5
-y_label_pad = 125
+y_label_pad = 25*2.7
 x_label_text = "$\\beta J_3$"
 y_label_text = "$\\beta J_1$"
 
 extension = 'pdf'
-# extension = 'png'
+#extension = 'png'
 ### 
 ###
 if max_x == 'auto':
@@ -62,7 +62,7 @@ fig.subplots_adjust(left=0.17)
 data_bl_one = np.array([])
 data_bl_three = np.array([])
 
-data_bu_one = np.array([2.7, 2.64, 2.58, 2.55, 2.5])
+data_bu_one = np.array([2.7, 2.64, 2.58, 2.55, 2.55])
 data_bu_three = np.array([0.00, 0.40, 1.00, 1.60, 2.00])
 
 data_ul_one = np.array([2.10, 1.92, 1.55, 1.06, .68, 0.00])
@@ -87,13 +87,13 @@ three = np.append(three, data_ul_three)
 color_count = -1
 
 color_count += 1
-ax.scatter(data_bl_three,  data_bl_one, zorder=1, color=colours_markers[color_count],  marker=shapes[color_count], s=marker_size)
+ax.scatter(data_bl_three,  data_bl_one, zorder=1, color='b',  marker='D', s=marker_size)
 
 color_count += 1
-ax.scatter( data_bu_three, data_bu_one, zorder=1, color=colours_markers[color_count],  marker=shapes[color_count], s=marker_size)
+ax.scatter( data_bu_three, data_bu_one, zorder=1, color='m',  marker='o', s=marker_size)
 
 color_count += 1
-ax.scatter( data_ul_three, data_ul_one, zorder=1, color=colours_markers[color_count],  marker=shapes[color_count], s=marker_size)
+ax.scatter( data_ul_three, data_ul_one, zorder=1, color='k',  marker='^', s=marker_size)
 
 # ax.scatter( .40, 2.08, zorder=2, color='r',  marker='*', s=1250)
 
@@ -129,7 +129,7 @@ first_polygon = create_polygon(
     0,
     2)
 ax.add_patch(first_polygon)
-ax.text( .50, 1.20, 'Liquid', fontsize=40 )
+ax.text( .50, 1.10, '$O(3)$', fontsize=75 )
 second_polygon = create_polygon( 
    [], 
    bu_three,
@@ -141,7 +141,7 @@ second_polygon = create_polygon(
    max_y,
    0)
 ax.add_patch(second_polygon) 
-ax.text( 1.30, 1.90, 'Biaxial', fontsize=40 )
+ax.text( 1.30, 1.80, '$D_{4h}$', fontsize=75 )
 third_polygon = create_polygon( 
    ul_three,
    max_x,
@@ -153,7 +153,7 @@ third_polygon = create_polygon(
    [],
    1)
 ax.add_patch(third_polygon) 
-ax.text( .80, 2.80, 'Uniaxial', fontsize=40 )
+ax.text( .80, 2.70, '$D_{\\infty h}$', fontsize=75 )
 ###
 
 ###labels

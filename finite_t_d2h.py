@@ -12,7 +12,7 @@ from smoother import *
 def color (number):
     return cm.ocean( number / 4.)
 ###parameters
-colours_markers = [ 'r', 'k', 'b', 'c', 'm', 'y', 'g']
+colours_markers = [ 'r', 'k', 'b', 'm', 'y', 'g']
 
 colours = [color(number) for number in range(0,4)]
 
@@ -25,21 +25,22 @@ x_tick = 0.1
 y_tick = 0.1
 
 min_y = 0.0
-max_y = 1.50
+max_y = 3.00
 
 min_x = 0.00
 max_x = 2.0
 
 
+
 x_tick_pad = 5
 x_label_pad = 15
 y_tick_pad = 5
-y_label_pad = 125
+y_label_pad = 25*2.7
 x_label_text = "$\\beta J_3$"
 y_label_text = "$\\beta J_1$"
 
 extension = 'pdf'
-# extension = 'png'
+#extension = 'png'
 ### 
 ###
 if max_x == 'auto':
@@ -62,8 +63,8 @@ fig.subplots_adjust(left=0.17)
 data_bl_one = np.array([1.34, 1.32, 1.26, 1.18, 1.04])
 data_bl_three = np.array([0.0, 0.4, 0.8, 1.0, 1.3])
 
-data_bu_one = np.array([1.04, 0.96, 0.88, 0.80])
-data_bu_three = np.array([1.3, 1.5, 1.6, 2.0])
+data_bu_one = np.array([1.04, 0.96, 0.88, 0.82, 0.80*.95])
+data_bu_three = np.array([1.3, 1.5, 1.6, 1.8, 2.0])
 
 data_ul_one = np.array([1.04, .78, .62, .26, 0.00])
 data_ul_three = np.array([1.3, 1.5, 1.6, 1.7, 1.8])
@@ -124,13 +125,13 @@ bu_three, bu_one = smooth_bootstrap2(smooth_three, smooth_one, 100, data_bu_thre
 color_count = -1
 
 color_count += 1
-ax.scatter(data_bl_three,  data_bl_one, zorder=1, color=colours_markers[color_count],  marker=shapes[color_count], s=marker_size)
+ax.scatter(data_bl_three,  data_bl_one, zorder=1, color='b',  marker='D', s=marker_size)
 
 color_count += 1
-ax.scatter( data_bu_three, data_bu_one, zorder=1, color=colours_markers[color_count],  marker=shapes[color_count], s=marker_size)
+ax.scatter( data_bu_three, data_bu_one, zorder=1, color='m',  marker='o', s=marker_size)
 
 color_count += 1
-ax.scatter( data_ul_three, data_ul_one, zorder=1, color=colours_markers[color_count],  marker=shapes[color_count], s=marker_size)
+ax.scatter( data_ul_three, data_ul_one, zorder=1, color='k',  marker='^', s=marker_size)
 
 ax.scatter( 1.30, 1.04, zorder=2, color='r',  marker='*', s=1250)
 
@@ -166,7 +167,7 @@ first_polygon = create_polygon(
     0,
     2)
 ax.add_patch(first_polygon) 
-ax.text( .50, .67, 'Liquid', fontsize=40 )
+ax.text( .50, .67, '$O(3)$', fontsize=75 )
 second_polygon = create_polygon( 
    bl_three, 
    bu_three,
@@ -178,7 +179,7 @@ second_polygon = create_polygon(
    max_y,
    0)
 ax.add_patch(second_polygon) 
-ax.text( 1.37, 1.26, 'Biaxial', fontsize=40 )
+ax.text( 1.37, 1.26, '$D_{2h}$', fontsize=75 )
 second_polygon = create_polygon( 
    ul_three,
    max_x,
@@ -190,7 +191,7 @@ second_polygon = create_polygon(
    [],
    1)
 ax.add_patch(second_polygon) 
-ax.text( 1.70, 0.49, 'Uniaxial', fontsize=40 )
+ax.text( 1.70, 0.49, '$D_{\\infty h}$', fontsize=75 )
 ###
 
 ###labels
@@ -200,12 +201,11 @@ ax.tick_params(axis='y', pad=y_tick_pad)
 ax.set_xlabel(x_label_text, fontsize=75, labelpad=x_label_pad)
 ax.set_ylabel(y_label_text, fontsize=75, rotation=0, labelpad=y_label_pad)
 
- 
 plt.xticks(np.linspace(min_x, max_x, 5))
 plt.xticks(np.array([0.00, 0.25, 0.50, 0.75, 1.00, 1.25, 1.50, 1.75, 2.00]))
 plt.yticks(np.linspace(min_y, max_y, 5))
-plt.yticks(np.array([0.00, 0.25, 0.50, 0.75, 1.00, 1.25, 1.50]))
- 
+plt.yticks(np.array([0.00, 0.50, 1.00, 1.50, 2.00, 2.50, 3.00]))
+
 minorLocator1 = AutoMinorLocator(5)
 minorLocator2 = AutoMinorLocator(5)
 ax.xaxis.set_minor_locator(minorLocator1) 
