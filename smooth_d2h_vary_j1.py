@@ -40,16 +40,16 @@ y_label_text = "$T\\, \\left[J_3\\right]$"
 extension = 'pdf'
 #extension = 'png'
 ###
-data_d2h_dinf_coup = np.array([0.0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.35, 0.45, 0.55, 0.65])
-data_d2h_dinf_crit = 1/np.array([float("Inf"), 13.2, 6.8, 4.8, 4.35, 3.0, 2.3, 1.85, 1.65, 1.44])
+data_d2h_dinf_coup = np.array([0.0, 0.05, 0.15,  0.25, 0.45, 0.55, 0.65])
+data_d2h_dinf_crit = 1/np.array([float("Inf"), 13.2,  4.8, 3.0, 1.85, 1.65, 1.44])
 d2h_dinf_coup, d2h_dinf_crit = smooth_bootstrap(data_d2h_dinf_coup, data_d2h_dinf_crit, 100)
 
-data_dinfh_03_coup = np.array([0.00, 0.05, 0.10, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65])
-data_dinfh_03_crit = 1/np.array([1.8, 1.73, 1.72, 1.7, 1.68, 1.63, 1.56, 1.51, 1.44])
+data_dinfh_03_coup = np.array([0.00, 0.05, 0.15, 0.25, 0.45, 0.65])
+data_dinfh_03_crit = 1/np.array([1.8, 1.73, 1.7, 1.68,  1.56, 1.44])
 dinfh_03_coup, dinfh_03_crit = smooth_bootstrap(data_dinfh_03_coup, data_dinfh_03_crit, 100)
 
-data_d2h_03_coup = np.array([0.65, 0.70, 0.75, 0.85, 0.90, 0.95, 1.05, 1.10, 1.15, 1.20, 1.25, ])
-data_d2h_03_crit = 1/np.array([1.44, 1.40, 1.35, 1.25, 1.21, 1.17, 1.09, 1.05, 1.02, 0.98, 0.95])
+data_d2h_03_coup = np.array([0.65, 0.75, 0.85, 0.95, 1.05, 1.15, 1.25, ])
+data_d2h_03_crit = 1/np.array([1.44, 1.35, 1.25, 1.17, 1.09, 1.02,  0.95])
 d2h_03_coup, d2h_03_crit = smooth_bootstrap(data_d2h_03_coup, data_d2h_03_crit, 100)
 
 ###
@@ -85,13 +85,15 @@ fig.subplots_adjust(left=0.17)
 color_count = -1
 
 color_count += 1
-ax.scatter( data_d2h_dinf_coup, data_d2h_dinf_crit, zorder=1, color=colours_markers[color_count],  marker=shapes[color_count], s=marker_size)
+ax.scatter( data_d2h_dinf_coup, data_d2h_dinf_crit, zorder=1, color='m',  marker='o', s=marker_size)
 
 color_count += 1
-ax.scatter( data_dinfh_03_coup, data_dinfh_03_crit, zorder=1, color=colours_markers[color_count],  marker=shapes[color_count], s=marker_size)
+ax.scatter( data_dinfh_03_coup, data_dinfh_03_crit, zorder=1, color='k',  marker='^', s=marker_size)
 
 color_count += 1
-ax.scatter( data_d2h_03_coup, data_d2h_03_crit, zorder=1, color=colours_markers[color_count],  marker=shapes[color_count], s=marker_size)
+ax.scatter( data_d2h_03_coup, data_d2h_03_crit, zorder=1, color='r',  marker='v', s=marker_size)
+
+ax.scatter( .65, 1.0/1.44, zorder=1, color='r',  marker='*', s=1250)
 
 ###plot smooth
 if False:
@@ -128,11 +130,11 @@ first_polygon = create_polygon(
     dinfh_03_crit[::-1],
     min_y,
     min_y,
-    0)
+    1)
 ax.add_patch(first_polygon)
-#ax.text( 0.08, .35 + 0.05, '$D_{\\infty h}$', fontsize=40 )
+#ax.text( 0.08, .35 + 0.05, '$D_{\\infty h}$', fontsize=75 )
 ax.text( 0.08, .35 + 0.05, '$D_{\\infty h}$', fontsize=75 )
-#ax.text( 0.05, .35 - 0.0, 'Uniaxial', fontsize=40 )
+#ax.text( 0.05, .35 - 0.0, 'Uniaxial', fontsize=75 )
 #polygons time 
 second_polygon = create_polygon(
     dinfh_03_coup,
@@ -145,9 +147,9 @@ second_polygon = create_polygon(
     max_y,
     2)
 ax.add_patch(second_polygon) 
-#ax.text( .45, .85 + 0.05, '$O(3)$', fontsize=40 )
+#ax.text( .45, .85 + 0.05, '$O(3)$', fontsize=75 )
 ax.text( .45, .85 + 0.05, '$O(3)$', fontsize=75 )
-#ax.text( .4, .85 - 0.0, 'Liquid', fontsize=40 )
+#ax.text( .4, .85 - 0.0, 'Liquid', fontsize=75 )
 ###
 third_polygon = create_polygon(
     d2h_dinf_coup,
@@ -158,11 +160,11 @@ third_polygon = create_polygon(
     d2h_03_crit,
     min_y,
     min_y,
-    1)
+    0)
 ax.add_patch(third_polygon) 
-#ax.text( .75, .35 + 0.05, '$D_{2h}$', fontsize=40 )
+#ax.text( .75, .35 + 0.05, '$D_{2h}$', fontsize=75 )
 ax.text( .75, .35 + 0.05, '$D_{2h}$', fontsize=75 )
-#ax.text( .7, .35 - 0.0, 'Biaxial', fontsize=40 )
+#ax.text( .7, .35 - 0.0, 'Biaxial', fontsize=75 )
 ### 
 ###labels
 ax.tick_params(axis='x', pad=x_tick_pad)

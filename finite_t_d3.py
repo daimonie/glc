@@ -167,7 +167,7 @@ first_polygon = create_polygon(
     ul_one,
     2)
 ax.add_patch(first_polygon) 
-ax.text( .6, .9, '$O(3)$', fontsize=75 ) 
+ax.text( .5, .8, '$O(3)$', fontsize=75 ) 
 ###
 second_polygon = create_polygon( 
     sl_three,
@@ -180,7 +180,7 @@ second_polygon = create_polygon(
     [],
     3)
 ax.add_patch(second_polygon) 
-ax.text( .015, 2.2, '$D_{3h}$', fontsize=75 ) 
+ax.text( .015, 2.4, '$D_{3h}$', fontsize=75 ) 
 ###
 third_polygon = create_polygon( 
     bs_three,
@@ -193,7 +193,7 @@ third_polygon = create_polygon(
     [max_y, max_y],
     0)
 ax.add_patch(third_polygon) 
-ax.text( 1.0, 2.40, '$D_{3}$', fontsize=75 ) 
+ax.text( 1.0, 2.20, '$D_{3}$', fontsize=75 ) 
 ###
 fourth_polygon = create_polygon( 
     bu_three,

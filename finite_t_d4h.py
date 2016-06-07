@@ -141,7 +141,7 @@ second_polygon = create_polygon(
    max_y,
    0)
 ax.add_patch(second_polygon) 
-ax.text( 1.30, 1.80, '$D_{4h}$', fontsize=75 )
+ax.text( 1.30, 1.80, '$D_{\\infty h}$', fontsize=75 )
 third_polygon = create_polygon( 
    ul_three,
    max_x,
@@ -153,7 +153,7 @@ third_polygon = create_polygon(
    [],
    1)
 ax.add_patch(third_polygon) 
-ax.text( .80, 2.70, '$D_{\\infty h}$', fontsize=75 )
+ax.text( .80, 2.70, '$D_{4 h}$', fontsize=75 )
 ###
 
 ###labels

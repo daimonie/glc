@@ -65,7 +65,7 @@ fig.subplots_adjust(left=0.17)
 # biaxial-star liquid sl
 
 data_bu_three = np.array([ 0.25, 0.40, 1.00, 2.00])
-data_bu_one = np.array([2.75, 2.62*1.025, 2.49*1.05, 2.45])
+data_bu_one = np.array([2.75, 2.62*1.025, 2.49*1.05, 2.45*1.05])
 
 bu_three, bu_one = smooth_bootstrap(data_bu_three, data_bu_one, 100)
 
@@ -82,8 +82,8 @@ data_bs_one = np.array([3.0, 2.75])
 bs_three, bs_one = smooth_bootstrap(data_bs_three, data_bs_one, 100)
 
 #is actuall su!
-data_sl_three = np.array([0.00, 0.10, 0.15, 0.25])
-data_sl_one = np.array([2.75, 2.75, 2.75, 2.75])
+data_sl_three = np.array([0.00 , 0.25])
+data_sl_one = np.array([2.75, 2.75])
 sl_three, sl_one = smooth_bootstrap(data_sl_three, data_sl_one, 100)
 
 one = np.array([]) 
@@ -101,20 +101,15 @@ three = np.append(three, data_bs_three)
 three = np.append(three, data_sl_three)
 
 #smoothen data  
-smooth_one = np.append( sl_one, bu_one )
-smooth_three = np.append( sl_three, bu_three )
+smooth_one = np.append( data_sl_one, data_bu_one )
+smooth_three = np.append( data_sl_three, data_bu_three )
+
 for i in range(500):
     smooth_one = np.append(smooth_one, 2.71)
-    smooth_three = np.append(smooth_three, .25)
-
-
-imax = 5000.0    
-for i in range(int(imax)):
-    smooth_one = np.append(smooth_one, 2.75 + (2.45-2.75)/imax*i)
-    smooth_three = np.append(smooth_three, 0.25 + (2.00-0.25)/imax*i)
+    smooth_three = np.append(smooth_three, .25) 
      
-    
 bu_three, bu_one = smooth_bootstrap2( smooth_three, smooth_one, 100, data_bu_three)
+sl_three, sl_one = smooth_bootstrap2( smooth_three, smooth_one, 100, data_sl_three)
 ### markers 
 
 color_count = -1
@@ -135,7 +130,7 @@ color_count += 1
 ax.scatter(data_sl_three,  data_sl_one, zorder=1, color='y',  marker='*', s=marker_size)
 
 # tricritical point
-ax.scatter( .25, 2.71, zorder=2, color='b',  marker='*', s=1250)
+ax.scatter( .25, 2.71, zorder=2, color='m',  marker='*', s=1250)
 
 def create_polygon( x1, x2, x3, x4, y1, y2, y3, y4, colour_index):
     global fill_opacity, colours
@@ -182,7 +177,7 @@ second_polygon = create_polygon(
     [],
     3)
 ax.add_patch(second_polygon) 
-ax.text( .02, 2.85, '$D_{4h}$', fontsize=75 ) 
+ax.text( .02, 2.75, '$D_{4h}$', fontsize=75 ) 
 ###
 third_polygon = create_polygon( 
     bs_three,

@@ -179,7 +179,7 @@ second_polygon = create_polygon(
    max_y,
    0)
 ax.add_patch(second_polygon) 
-ax.text( 1.37, 1.26, '$D_{2h}$', fontsize=75 )
+ax.text( 0.95, 2.06, '$D_{2h}$', fontsize=75 )
 second_polygon = create_polygon( 
    ul_three,
    max_x,

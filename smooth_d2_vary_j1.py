@@ -27,8 +27,8 @@ y_tick = 0.1
 min_x = 0.0
 min_y = 0.0
 
-max_x = 1.25 
-max_y = 1.20
+max_x = 3.00
+max_y = 2.50
 
 x_tick_pad = 5
 x_label_pad = 15
@@ -42,16 +42,24 @@ extension = 'pdf'
 ###
 print r"$\\beta_C$ data was inverted to find $T_C$."
 #C_2 -> C_{\inf v}
-biuni_coup = np.array([0.00, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60])
-biuni_crit = 1/np.array([float('Inf'), 13, 7.1, 4.8, 3.8, 2.8, 2.36, 2.1, 1.89, 1.74, 1.63, 1.54, 1.46])
+biuni_coup = np.array([0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.55, 0.60])
+biuni_crit = 1/np.array([float('Inf'), 7.1, 3.8, 2.36, 1.89,1.63, 1.54, 1.46])
 
 #C_{\inf v} -> O(3)
-unili_coup = np.array([0.00, 0.05, 0.10, 0.15, 0.25, 0.35, 0.40, 0.45, 0.50, 0.60])
-unili_crit = 1/np.array([1.8, 1.72, 1.71, 1.70, 1.68, 1.63, 1.6, 1.55, 1.5, 1.46])
+unili_coup = np.array([0.00,  0.10, 0.25, 0.40,  0.50, 0.60])
+unili_crit = 1/np.array([1.8, 1.71, 1.68,  1.6, 1.5, 1.46])
 
 #C_2 -> O(3)
-biali_coup = np.array([.60, .65, .75, .80, .85, .90, .95, 1.05, 1.10, 1.15, 1.20, 1.25])
-biali_crit = 1/np.array([1.46, 1.39, 1.27, 1.22, 1.18, 1.13, 1.09, 1.02, .99, .96, .93, .91])
+biali_coup = np.array([.60, .65, .80,1.20, 1.60, 2.00, 2.20, 2.40])
+biali_crit = 1/np.array([1.46, 1.39, 1.22, .93, .76, .64, .60, .56 ])
+
+#D2 -> D2h
+data_bs_coup = np.array([2.40, 2.60, 2.80, 3.00])
+data_bs_crit = 1.0/np.array([.56, .53, .51, .48])
+
+data_sl_coup = np.array([2.40, 2.60, 2.80, 3.00])
+data_sl_crit = 1.0/np.array([.56, .50, .46, .43])
+
 #initialise figure
 fig, ax = plt.subplots(1, 1, figsize=(25, 15), dpi=1080)
 plt.xticks(fontsize=30)
@@ -69,25 +77,29 @@ unili_coup, unili_crit = smooth_bootstrap(unili_coup, unili_crit, 100)
 biali_coup, biali_crit = smooth_bootstrap(biali_coup, biali_crit, 100)
 
 
+bs_coup, bs_crit = smooth_bootstrap2( np.append(biali_coup, data_bs_coup), np.append(biali_crit, data_bs_crit), 100, data_bs_coup)
+sl_coup, sl_crit = smooth_bootstrap2( np.append(biali_coup, data_sl_coup), np.append(biali_crit, data_sl_crit), 100, data_sl_coup)
+
 ### first filled shape, the biaxial phase 
  
 first_polygon = create_polygon(
     biuni_coup,
     biali_coup,
+    bs_coup,
     max_x,
-    max_x,
+    
     biuni_crit,
     biali_crit, 
+    bs_crit,
     min_y,
-    min_y,
-    1)
+    0)
 
 ax.add_patch(first_polygon)
 
 first_average_coup = .7
 first_average_crit = .5
-ax.text( first_average_coup+.05, .5*first_average_crit+0.05, '$D_{2}$', fontsize=40 )
-#ax.text( first_average_coup, .5*first_average_crit-0.05, 'Biaxial', fontsize=40 )
+ax.text( 1.75, .75, '$D_{2}$', fontsize=75 )
+#ax.text( first_average_coup, .5*first_average_crit-0.05, 'Biaxial', fontsize=75 )
 
 ### second filled shape, the uniaxial
 
@@ -100,13 +112,13 @@ second_polygon = create_polygon(
     unili_crit[::-1], 
     min_y,
     min_y,
-    0)
+    1)
 
 
 ax.add_patch(second_polygon)
  
-ax.text( 0.07+.05, .4 + 0.05, '$D_{\infty h}$', fontsize=40 )
-#ax.text( 0.07, .4 - 0.05, 'Uniaxial', fontsize=40 )
+ax.text( 0.05, .35  , '$D_{\infty h}$', fontsize=75 )
+#ax.text( 0.07, .4 - 0.05, 'Uniaxial', fontsize=75 )
 
 ### third filled shape, the liquid phase 
 
@@ -116,25 +128,43 @@ third_dim1 = unili_crit.shape[0]
 third_polygon = create_polygon(
     unili_coup,
     biali_coup,
-    max_x,
-    min_x,
+    sl_coup,
+    [max_x, min_x],
+    
     unili_crit,
     biali_crit, 
-    max_y,
-    max_y,
+    sl_crit,
+    [max_y, max_y],
     2)
 ax.add_patch(third_polygon)
-ax.text( .55, .9, '$O(3)$', fontsize=40 )
-#ax.text( .5, .85, 'Liquid', fontsize=40 )
+ax.text( .95, 1.59, '$O(3)$', fontsize=75 )
+#ax.text( .5, .85, 'Liquid', fontsize=75 )
 
+fourth_polygon = create_polygon(
+    sl_coup,
+    bs_coup[::-1],
+    [],
+    [],
+    
+    sl_crit,
+    bs_crit[::-1],
+    [],
+    [],
+    3)
+ax.add_patch(fourth_polygon)
+ax.text( 2.70, 2.1, '$D_{2 h}$', fontsize=75 )
 ### markers 
 
 ### markers 
 
-ax.scatter( rbiuni_coup, rbiuni_crit, zorder=1, color=colours_markers[0],  marker=shapes[0], label=labels[0], s=marker_size)
-ax.scatter( runili_coup, runili_crit, zorder=1,  color=colours_markers[1],  marker=shapes[1], label=labels[1], s=marker_size)
-ax.scatter( rbiali_coup, rbiali_crit, zorder=1,  color=colours_markers[2],  marker=shapes[2], label=labels[2], s=marker_size)
+ax.scatter( rbiuni_coup, rbiuni_crit, zorder=1, color='m',  marker='o', label=labels[0], s=marker_size)
+ax.scatter( runili_coup, runili_crit, zorder=1,  color='k',  marker='^', label=labels[1], s=marker_size)
+ax.scatter( rbiali_coup, rbiali_crit, zorder=1,  color='b',  marker='D', label=labels[2], s=marker_size)
+ax.scatter( data_bs_coup, data_bs_crit, zorder=1,  color='g',  marker='s', label=labels[2], s=marker_size)
+ax.scatter( data_sl_coup, data_sl_crit, zorder=1,  color='r',  marker='v', label=labels[2], s=marker_size)
 
+ax.scatter( 2.40, 1.0/0.56, zorder=2, color='b',  marker='*', s=1250)
+ax.scatter( .60, 1.0/1.46, zorder=2, color='r',  marker='*', s=1250)
 ###labels
 ax.tick_params(axis='x', pad=x_tick_pad)
 ax.tick_params(axis='y', pad=y_tick_pad)
@@ -142,17 +172,8 @@ ax.tick_params(axis='y', pad=y_tick_pad)
 ax.set_xlabel(x_label_text, fontsize=75, labelpad=x_label_pad)
 ax.set_ylabel(y_label_text, fontsize=75, rotation=0, labelpad=y_label_pad)
 ###
-min_x = np.min([ np.min(biuni_coup), np.min(unili_coup), np.min(biali_coup)])
-max_x = np.max([ np.max(biuni_coup), np.max(unili_coup), np.max(biali_coup)])
-
-min_y = np.min([ np.min(biuni_crit), np.min(unili_crit), np.min(biali_crit)])
-if max_y == 'auto':
-    max_y = int(np.max([ np.max(biuni_crit), np.max(unili_crit), np.max(biali_crit)]))
- 
-plt.xticks(np.linspace(min_x, max_x, 5))
-plt.xticks(np.array([0.00, 0.25, 0.50, 0.75, 1.00, 1.25]))
-plt.yticks(np.linspace(min_y, max_y, 5))
-plt.yticks(np.array([0.00, 0.25, 0.50, 0.75, 1.00, 1.20]))
+plt.xticks(np.array(range(7))*.5)
+plt.yticks(np.array(range(13))*.5)
  
 minorLocator1 = AutoMinorLocator(5)
 minorLocator2 = AutoMinorLocator(5)
@@ -166,8 +187,8 @@ plt.tick_params(which='both', width=2)
 plt.tick_params(which='major', length=20)
 plt.tick_params(which='minor', length=10)
 
-ax.set_xlim([min_x, max_x])
-ax.set_ylim([min_y, max_y]) 
+ax.set_xlim([0.00, max_x])
+ax.set_ylim([0.00, max_y]) 
 
 #plt.legend(bbox_to_anchor=(1.2, 1.1)) 
 if extension == "png":

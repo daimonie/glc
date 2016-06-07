@@ -196,7 +196,7 @@ second_polygon = create_polygon(
     [],
     3)
 ax.add_patch(second_polygon) 
-ax.text( .10, 1.65, '$D_{2h}$', fontsize=75 ) 
+ax.text( .10, 1.90, '$D_{2h}$', fontsize=75 ) 
 ###
 third_polygon = create_polygon( 
     bs_three,
@@ -209,7 +209,7 @@ third_polygon = create_polygon(
     [max_y, max_y],
     0)
 ax.add_patch(third_polygon) 
-ax.text( .90, 1.65, '$D_{2}$', fontsize=75 ) 
+ax.text( 1.150, 1.85, '$D_{2}$', fontsize=75 ) 
 ###
 fourth_polygon = create_polygon( 
     bu_three,
@@ -222,7 +222,7 @@ fourth_polygon = create_polygon(
     [],
     1)
 ax.add_patch(fourth_polygon) 
-ax.text( 1.65, .55, '$D_{\\infty h}$', fontsize=75 ) 
+ax.text( 1.70, .45, '$D_{\\infty h}$', fontsize=75 ) 
 ###
 
 ###labels
